@@ -184,6 +184,13 @@ textarea.c4tgridInput {
     border: none;
     outline: none;
     padding: 0px;
+    box-sizing: border-box;
+}
+
+.c4tgrid input:focus {
+    border: 1px solid #07c;
+    box-shadow: 0 0 5px #07c;
+    /* width: auto; */
 }
 
 
