@@ -1,0 +1,26 @@
+{
+  "name": "view-single",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib-commonjs/index.js",
+  "module": "lib/index.js",
+  "scripts": {
+    "build": "just-scripts build",
+    "just": "just-scripts",
+    "start": "just-scripts start",
+    "test": "just-scripts test",
+    "change": "npx beachball change",
+    "gen": "npx plop"
+  },
+  "dependencies": {
+    "office-ui-fabric-core": "^11.0.0",
+    "office-ui-fabric-react": "^7.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router": "^5.2.0"
+  },
+  "devDependencies": {
+    "just-scripts": "^0.27.0",
+    "just-stack-react": "^1.0.0"
+  }
+}

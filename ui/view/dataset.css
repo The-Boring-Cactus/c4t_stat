@@ -3,6 +3,9 @@
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.3em;
     font-size: 13px;
+    overflow: visible;
+    height: 100%;
+    width: auto;
 }
 
 .c4tgrid * {
@@ -40,9 +43,10 @@
     background-color: #FFF;
     font-size: 12px;
     vertical-align: top;
-    overflow: hidden;
+    /* overflow: hidden; */
     outline-width: 0;
     width: 50px;
+    min-width: 50px;
 }
 
 .c4tgrid th:last-child {
@@ -145,12 +149,10 @@ textarea.c4tgridInput {
     margin: 0;
     padding: 1px 4px 0 2px;
     font-family: Arial, Helvetica, sans-serif;
-    /*repeat from .c4tgrid (inherit doesn't work with IE<8) */
     line-height: 1.3em;
     font-size: 13px;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.4);
     resize: none;
-    /*below are needed to overwrite stuff added by jQuery UI Bootstrap theme*/
     display: inline-block;
     font-size: 13px;
     line-height: inherit;
@@ -177,17 +179,17 @@ textarea.c4tgridInput {
     text-align: right;
 }
 
-.c4tgrid input {
-    width: 100%;
-    height: 100%;
+.c4tgrid .inputx {
+    /* width: 100%;
+    height: 100%; */
     background: rgba(0, 0, 0, 0);
-    border: none;
-    outline: none;
-    padding: 0px;
-    box-sizing: border-box;
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    /* outline: none;
+    padding: 0px; */
 }
 
-.c4tgrid input:focus {
+.c4tgrid .inputx:focus {
     border: 1px solid #07c;
     box-shadow: 0 0 5px #07c;
     /* width: auto; */
