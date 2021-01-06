@@ -1,0 +1,73 @@
+{
+<<<<<<< HEAD
+  "name": "view",
+  "version": "0.0.1",
+  "description": "UI for the F-Stat project",
+  "productName": "Main UI",
+  "author": "ricardo.rodriguez@c4t.dev",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.vue ./",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "axios": "^0.18.1",
+    "core-js": "^3.6.5",
+    "quasar": "^1.0.0"
+  },
+  "devDependencies": {
+    "@quasar/app": "^2.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.1.2"
+  },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "engines": {
+    "node": ">= 10.18.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+
+=======
+  "name": "view-single",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib-commonjs/index.js",
+  "module": "lib/index.js",
+  "scripts": {
+    "build": "just-scripts build",
+    "just": "just-scripts",
+    "start": "just-scripts start",
+    "test": "just-scripts test",
+    "change": "npx beachball change",
+    "gen": "npx plop"
+  },
+  "dependencies": {
+    "office-ui-fabric-core": "^11.0.0",
+    "office-ui-fabric-react": "^7.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router": "^5.2.0"
+  },
+  "devDependencies": {
+    "just-scripts": "^0.27.0",
+    "just-stack-react": "^1.0.0"
+>>>>>>> master
+  }
+}
