@@ -4,7 +4,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="dataset.css"/>
-    
     <title>C4T</title>
 
 </head>
@@ -12,22 +11,16 @@
 <body>
     <div id="test"></div>
 
-<script type="text/javascript" src="../lib/functions.js"></script>
+
 <script type="text/javascript" src="../lib/jquery.js"></script>
 <script type="text/javascript" src="../lib/datagrid.js"></script>
 <script type="text/javascript">
-    var myGrid = null;
-    var globaldata = {};
-    var currentID = '';
+    
     $(document).ready(function() {
-        myGrid = new c4tgrid("#test");
-
-    });
-</script>
-<!-- import CSS -->
-<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-<!-- import JavaScript -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+        var t = new c4tgrid("#test");
+        
+        });
+    </script>
 </body>
 
 </html>
