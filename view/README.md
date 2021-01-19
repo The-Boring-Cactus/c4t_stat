@@ -1,6 +1,6 @@
 # Main UI (view)
 
-UI for the F-Stat project
+Main UI
 
 ## Install the dependencies
 ```bash

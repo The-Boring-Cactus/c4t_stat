@@ -1,8 +1,7 @@
 {
-<<<<<<< HEAD
   "name": "view",
   "version": "0.0.1",
-  "description": "UI for the F-Stat project",
+  "description": "Main UI",
   "productName": "Main UI",
   "author": "ricardo.rodriguez@c4t.dev",
   "private": true,
@@ -12,9 +11,11 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "quasar": "^1.0.0"
+    "quasar": "^1.0.0",
+    "vue-file-toolbar-menu": "^1.3.0",
+    "vue-i18n": "^8.0.0"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
@@ -43,31 +44,5 @@
     "node": ">= 10.18.1",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
-
-=======
-  "name": "view-single",
-  "version": "0.1.0",
-  "license": "MIT",
-  "main": "lib-commonjs/index.js",
-  "module": "lib/index.js",
-  "scripts": {
-    "build": "just-scripts build",
-    "just": "just-scripts",
-    "start": "just-scripts start",
-    "test": "just-scripts test",
-    "change": "npx beachball change",
-    "gen": "npx plop"
-  },
-  "dependencies": {
-    "office-ui-fabric-core": "^11.0.0",
-    "office-ui-fabric-react": "^7.0.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-router": "^5.2.0"
-  },
-  "devDependencies": {
-    "just-scripts": "^0.27.0",
-    "just-stack-react": "^1.0.0"
->>>>>>> master
   }
 }
