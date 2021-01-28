@@ -1,4 +1,4 @@
-# Main UI (view)
+# Main UI (Needs to be compile before to use in the main app)
 
 Main UI
 
