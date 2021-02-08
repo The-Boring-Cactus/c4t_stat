@@ -72,6 +72,7 @@ export default {
   },
   created: function () {
     if (typeof this.dataId === 'undefined' || this.dataId === '') {
+      console.log('New dataset')
         var me = []
         for (var c = 0; c < 26; c++) {
             var tmp = { key: c, title: this.i_to_coll(c) }
@@ -89,6 +90,8 @@ export default {
             rme.push(row)
         }
         this.rows = rme
+    } else {
+      console.log('Look for data')
     }
   },
   computed: {

@@ -58,10 +58,16 @@ import DataHouse from 'components/DataHouse.vue'
 import VueFileToolbarMenu from 'vue-file-toolbar-menu'
 const linksData = [
   {
+    title: 'F-Stat',
+    caption: 'Start page',
+    icon: 'home',
+    link: '/'
+  },
+  {
     title: 'Grid',
     caption: 'No Name',
-    icon: 'code',
-    link: '/peyote/'
+    icon: 'folder',
+    link: '/peyote'
   }
 ]
 
