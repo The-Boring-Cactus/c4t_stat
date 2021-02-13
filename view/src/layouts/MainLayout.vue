@@ -34,7 +34,7 @@
           Data Sets
         </q-item-label>
         <DataHouse
-          v-for='link in DataHouse'
+          v-for='link in linksData'
           :key='link.title'
           v-bind='link'
         />
@@ -42,7 +42,7 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view @mensajeFromRoute="childMensajeFromRoute"/>
     </q-page-container>
     <q-footer elevated class='text-white'>
       <div class='q-pa-lg flex flex-center'>
@@ -56,20 +56,20 @@
 import DataHouse from 'components/DataHouse.vue'
 // import MenuToolbar from 'components/MenuToolbar.vue'
 import VueFileToolbarMenu from 'vue-file-toolbar-menu'
-const linksData = [
-  {
-    title: 'F-Stat',
-    caption: 'Start page',
-    icon: 'home',
-    link: '/'
-  },
-  {
-    title: 'Grid',
-    caption: 'No Name',
-    icon: 'folder',
-    link: '/peyote'
-  }
-]
+// const linksData = [
+//   {
+//     title: 'F-Stat',
+//     caption: 'Start page',
+//     icon: 'home',
+//     link: '/'
+//   },
+//   {
+//     title: 'Grid',
+//     caption: 'No Name',
+//     icon: 'folder',
+//     link: '/peyote'
+//   }
+// ]
 
 const menuData2 = [
   {
@@ -145,13 +145,37 @@ export default {
     return {
       leftDrawerOpen: false,
       myicon: 'chevron_left',
-      DataHouse: linksData
+      linksData: [
+        {
+          title: 'F-Stat',
+          caption: 'Start page',
+          icon: 'home',
+          link: '/'
+        },
+        {
+          title: 'Grid',
+          caption: 'No Name',
+          icon: 'folder',
+          link: '/peyote'
+        }
+      ]
+      // DataHouse: linksData
     }
   },
   methods: {
       sideMenu: function () {
           this.leftDrawerOpen = !this.leftDrawerOpen
           this.myicon = this.leftDrawerOpen ? 'chevron_left' : 'chevron_right'
+      },
+      childMensajeFromRoute: function (arg1, arg2) {
+        console.log('Arg1: ' + arg1)
+        console.log('Arg2: ' + arg2)
+        this.linksData.push({
+          title: 'Grid',
+          caption: 'No Name',
+          icon: 'folder',
+          link: '/peyote'
+        })
       }
   },
   computed: {

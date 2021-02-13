@@ -2,7 +2,7 @@
   <div class="c4tgrid">
       <q-banner dense class="bg-grey-1">
       <template v-slot:avatar>
-        <q-icon name="signal_wifi_off" color="primary" />
+        <q-icon name="warning" color="primary" />
       </template>
         <div class="text-h5 text-weight-bolder" v-if="!titleedit"
             v-on:dblclick="startEdit"
@@ -143,6 +143,7 @@ export default {
       },
       enterPressed: function (e) {
         //   console.log('Enter Press')
+        this.$emit('mensajeFromRoute', 'Enter', 'Se preciono')
           var rCount = this.rows.length
           var cCount = this.cols.length - 1
           var id = e.target.id.replace('r', '').replace('c', '').split('_')
