@@ -1,7 +1,8 @@
-/view/node_modules
-/view/lib
-/view/lib-commonjs
-/view/dist
+/app/node_modules
+/app/lib
+/app/lib-commonjs
+/app/dist
+/python-call
 
 
 # Editor directories and files
