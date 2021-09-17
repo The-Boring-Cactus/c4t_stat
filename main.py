@@ -18,8 +18,8 @@ class FStat(object):
     
     def start_UI(self):
         api = Api()
-        # webview.create_window('F-Stat', 'ui/index.html',  js_api=api)
-        webview.create_window('F-Stat', 'http://localhost:8080/',  js_api=api)
+        webview.create_window('F-Stat', 'ui/index.html',  js_api=api)
+        # webview.create_window('F-Stat', 'http://localhost:8080/',  js_api=api)
         webview.start(debug=True)
 
 
