@@ -51,7 +51,7 @@
 <script>
 import DataHouse from 'components/DataHouse.vue'
 import VueFileToolbarMenu from 'vue-file-toolbar-menu'
-
+import { axiosInstance } from 'boot/axios'
 var vueObject = null
 
 const menuInformation = [
@@ -168,8 +168,9 @@ export default {
   mounted: function () {
     vueObject = this
     setTimeout(function () {
-      pywebview.api.getMenu().then((response) => {
-        for (var menu of response.menu) {
+      axiosInstance.get("getMenu").then((response) => {
+        console.log(response)
+        for (var menu of response.data.menu) {
           vueObject.datainfo.push({
             title: menu.title,
             caption: 'Data set',

@@ -1,12 +1,13 @@
 from flask import Flask, jsonify, send_from_directory
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+from flask import request
 import os
 import sys
 import time
 from threading import Thread
 import logging
-from src_api.utils.logger import logger
-from src_api.jsapi import Api
+from api.utils.logger import logger
+from api.jsapi import Api
 log = logging.getLogger(os.path.basename(__file__))
 
 # configuration
@@ -14,6 +15,8 @@ DEBUG = True
 
 # instantiate the app
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*/*": {"origins": "*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config.from_object(__name__)
 
 
@@ -46,6 +49,30 @@ def fonts(path):
 @app.route('/', methods=['GET'])
 def index():
     return send_from_directory(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ui'), 'index.html')
+    
+# Index
+@app.route('/getMenu', methods=['GET'])
+@cross_origin()
+def getMenu():
+    api = Api()
+    return api.getMenu()
+
+@app.route('/getData', methods=['GET'])
+@cross_origin()
+def getData():
+    id = request.args.get('id')
+    api = Api()
+    return api.getData(id)
+
+@app.route('/insert', methods=['POST'])
+@cross_origin()
+def insert():
+    data =  request.get_json(silent=True)
+    data_id = data['data_id']
+    title = data['title']
+    data = data['data']
+    api = Api()
+    return api.insert(data_id, title, data)
 
 
 if __name__ == '__main__':

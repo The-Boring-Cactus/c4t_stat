@@ -14,7 +14,8 @@
             @keyup.enter='endEdit'
             v-model="myTitle"/>
     </q-banner>
-      <table class="c4tCore">
+    <div class="c4tCore">
+      <table>
       <thead>
           <th/>
           <th v-for="col in allColums"
@@ -41,6 +42,7 @@
           </tr>
       </tbody>
     </table>
+    </div>
     <q-dialog v-model="prompt" persistent>
       <q-card style="min-width: 350px">
         <q-card-section>
@@ -63,6 +65,7 @@
 <script>
 import { v4 as uuidv4 } from 'uuid';
 var VueScrollTo = require('vue-scrollto')
+import { axiosInstance } from 'boot/axios'
 
 export default {
   name: 'DataGrid',
@@ -119,17 +122,24 @@ export default {
       this.id = this.dataId
       this.myTitle = this.title
       var mySelf = this
-      pywebview.api.getData(this.id).then((response) => {
-           mySelf.cols = response.data.data.cols
-           mySelf.rows = response.data.data.rows
+      var getData = { params: { id: this.id } }
+      axiosInstance.get("getData", getData).then((response) => {
+           mySelf.cols = response.data.data.data.cols
+           mySelf.rows = response.data.data.data.rows
         })
     }
   },
   beforeDestroy: function () {
       var dataRaw = { cols: this.cols, rows: this.rows }
       var data = JSON.stringify(dataRaw)
-      pywebview.api.insert(this.id, this.myTitle, data).then((response) => {
-          console.log(response.message)
+      var postData = {
+          data_id: this.id,
+          title: this.myTitle,
+          data: data
+      }
+      console.log(postData)
+      axiosInstance.post("insert", postData).then((response) => {
+          console.log(response.data.message)
       })
   },
   computed: {
@@ -212,8 +222,13 @@ export default {
       saveData: function () {
           var dataRaw = { cols: this.cols, rows: this.rows }
           var data = JSON.stringify(dataRaw)
-          pywebview.api.insert(this.id, this.myTitle, data).then((response) => {
-            console.log(response.message)
+          var postData = {
+              data_id: this.id,
+              title: this.myTitle,
+              data: data
+          }
+          axiosInstance.post("insert", postData).then((response) => {
+            console.log(response.data.message)
           })
       },
       newDataSet: function () {
@@ -221,8 +236,13 @@ export default {
           this.$emit('newDataset', this.myTitle, this.id)
           var dataRaw = { cols: this.cols, rows: this.rows }
           var data = JSON.stringify(dataRaw)
-          pywebview.api.insert(this.id, this.myTitle, data).then((response) => {
-            console.log(response.message)
+          var postData = {
+              data_id: this.id,
+              title: this.myTitle,
+              data: data
+          }
+          axiosInstance.post("insert", postData).then((response) => {
+            console.log(response.data.message)
           })
       },
       upPressed: function (e) {
@@ -308,16 +328,17 @@ export default {
 
 <style scoped>
 .c4tgrid {
-    position: relative;
+    position: absolute;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.3em;
-    font-size: 13px;
+    height: 95%;
 }
 
-.c4tgrid * {
-    box-sizing: content-box;
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
+.c4tCore{
+  margin-top: 20px;
+  display: inline-block;
+  overflow: auto;
+  height: 80%;
 }
 
 .c4tgrid table {
@@ -339,15 +360,26 @@ export default {
     width: 50px;
 }
 
-.c4tgrid th,
+.c4tgrid th{
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    border-top: 1px solid #CCC;
+    height: 22px;
+    line-height: 21px;
+    background-color: #FFF;
+    font-size: 0.85rem;
+    vertical-align: top;
+    overflow: hidden;
+    outline-width: 0;
+    width: 50px;
+}
 .c4tgrid td {
     border-right: 1px solid #CCC;
     border-bottom: 1px solid #CCC;
     height: 22px;
     line-height: 21px;
-    padding: 0 4px 0 4px;
     background-color: #FFF;
-    font-size: 12px;
+    font-size: 0.75rem;
     vertical-align: top;
     overflow: hidden;
     outline-width: 0;
@@ -442,28 +474,6 @@ export default {
 .c4tgrid td.area {
     background-color: #EEF4FF;
 }
-/* textarea border color */
-
-textarea.c4tgridInput {
-    border: 2px solid #5292F7;
-    outline-width: 0;
-    margin: 0;
-    padding: 1px 4px 0 2px;
-    font-family: Arial, Helvetica, sans-serif;
-    /*repeat from .c4tgrid (inherit doesn't work with IE<8) */
-    line-height: 1.3em;
-    font-size: 13px;
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.4);
-    resize: none;
-    /*below are needed to overwrite stuff added by jQuery UI Bootstrap theme*/
-    display: inline-block;
-    font-size: 13px;
-    line-height: inherit;
-    color: #000;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
-}
 
 .c4tgridInputHolder {
     position: absolute;
@@ -483,19 +493,20 @@ textarea.c4tgridInput {
 .c4tgrid input {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0);
     border: none;
     outline: none;
     padding: 0px;
-    box-sizing: border-box;
+     -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+         box-sizing: border-box;
     margin: 0px;
 }
 
 .c4tgrid input:focus {
-    border: 1px solid #07c;
-    box-shadow: 0 0 5px #07c;
     padding: 0px;
     margin: 0px;
+    background: #F8F8F8;
+    border: 1px solid #217068 !important;
     /* width: auto; */
 }
 

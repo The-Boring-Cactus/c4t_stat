@@ -1,4 +1,4 @@
-from src_api.db import DataStore
+from .db import DataStore
 class Api:
     def __init__(self):
         self.name = 'Api'
