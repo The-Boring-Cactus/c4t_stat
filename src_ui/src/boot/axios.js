@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
     },
     baseURL: process.env.NODE_ENV === 'production'
       ? '/'
-      : 'http://localhost/'
+      : 'http://localhost:8080/'
 })
 
 const setErrorInterceptor = (errorFunction) => {

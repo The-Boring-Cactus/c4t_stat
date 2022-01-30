@@ -6,8 +6,8 @@ import sys
 import time
 from threading import Thread
 import logging
-from api.utils.logger import logger
-from api.jsapi import Api
+from src_api.utils.logger import logger
+from src_api.jsapi import Api
 log = logging.getLogger(os.path.basename(__file__))
 
 # configuration
@@ -15,8 +15,6 @@ DEBUG = True
 
 # instantiate the app
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*/*": {"origins": "*"}})
-app.config['CORS_HEADERS'] = 'Content-Type'
 app.config.from_object(__name__)
 
 
@@ -49,8 +47,7 @@ def fonts(path):
 @app.route('/', methods=['GET'])
 def index():
     return send_from_directory(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ui'), 'index.html')
-    
-# Index
+
 @app.route('/getMenu', methods=['GET'])
 @cross_origin()
 def getMenu():
@@ -74,6 +71,5 @@ def insert():
     api = Api()
     return api.insert(data_id, title, data)
 
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=8080)

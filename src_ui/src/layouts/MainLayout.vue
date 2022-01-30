@@ -6,9 +6,7 @@
           F-Stat <q-badge align="top">v1.0.0</q-badge>
         </q-toolbar-title>
          <q-space />
-      </q-toolbar>
-      <q-toolbar stretch class='bg-white'>
-        <q-btn
+         <q-btn
           class='text-black'
           flat
           dense
@@ -17,7 +15,6 @@
           aria-label='Menu'
           @click='sideMenu'
         />
-        <vue-file-toolbar-menu :content='menu' />
       </q-toolbar>
     </q-header>
 
@@ -50,90 +47,12 @@
 
 <script>
 import DataHouse from 'components/DataHouse.vue'
-import VueFileToolbarMenu from 'vue-file-toolbar-menu'
 import { axiosInstance } from 'boot/axios'
 var vueObject = null
 
-const menuInformation = [
-  {
-    text: 'Data',
-    menu: [
-      {
-        text: 'New',
-        click: () => {
-          console.log('new')
-          vueObject.$router.push('/').catch(err => {
-            console.log(err)
-          })
-          vueObject.$nextTick(() => {
-            vueObject.$router.push('/data').catch(err => {
-              console.log(err)
-            })
-          })
-        }
-      },
-      { is: 'separator' },
-      { text: 'Delete', click: () => alert('Youre amazing, ' + (prompt('Whats your name?') || 'friend') + '!') }
-    ]
-  },
-  {
-    text: 'Edit',
-    menu: [
-      { text: 'Cut', click: () => document.execCommand('cut') },
-      { text: 'Copy', click: () => document.execCommand('copy') },
-      { text: 'Paste', click () { navigator.clipboard.readText().then(text => { document.execCommand('insertText', false, text) }) } }
-    ]
-  },
-  {
-    text: 'Formats',
-    menu: [
-      { text: 'Basic' },
-      { text: 'Disabled', disabled: true },
-      {
-        text: 'Sub-menus',
-        custom_chevron: '►',
-        menu: [
-          { text: 'Hello!' },
-          {
-            text: 'Im a sub-menu',
-            custom_chevron: '►',
-            menu: [
-              { text: 'And Im another sub-menu!' }
-            ],
-            menu_width: 240
-          }
-        ],
-        menu_width: 200
-      },
-      {
-        text: 'Hotkey',
-        hotkey: 'ctrl+e',
-        click () {
-          alert('Hotkey menu triggered either via clicking or shortcut.')
-        }
-      },
-      { text: 'Material icon', icon: 'shopping_cart', click: () => window.open('https://material.io/resources/icons', '_blank') },
-      { text: 'Platform emoji', emoji: 'call_me_hand', click: () => window.open('https://raw.githubusercontent.com/omnidan/node-emoji/master/lib/emoji.json', '_blank') },
-      { text: 'Menu text is wrapped when it is too long' }
-    ],
-    menu_width: 220
-  },
-  {
-    text: 'Help',
-    menu: [
-      { text: 'About', icon: 'help', click: () => alert('vue-file-toolbar-menu\nhttps://github.com/motla/vue-file-toolbar-menu\nby @motla\nMIT License') },
-      { is: 'separator' },
-      { text: 'Repository', icon: 'exit_to_app', click: () => window.open('https://github.com/motla/vue-file-toolbar-menu') },
-      { text: 'API', icon: 'exit_to_app', click: () => window.open('https://github.com/motla/vue-file-toolbar-menu/blob/master/API.md') },
-      { text: 'Report Issue', icon: 'exit_to_app', click: () => window.open('https://github.com/motla/vue-file-toolbar-menu/issues') },
-      { text: 'Release Notes', icon: 'exit_to_app', click: () => window.open('https://github.com/motla/vue-file-toolbar-menu/blob/master/CHANGELOG.md') }
-    ],
-    menu_width: 220
-  }
-]
 export default {
   name: 'MainLayout',
-  components: { DataHouse, VueFileToolbarMenu },
+  components: { DataHouse },
   data () {
     return {
       leftDrawerOpen: false,
@@ -187,10 +106,6 @@ export default {
     this.$q.loading.show()
   },
   computed: {
-    menu () {
-      vueObject = this
-      return menuInformation
-    },
     datanav () {
       return this.datainfo
     }
