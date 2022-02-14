@@ -10,6 +10,7 @@ class DataStore:
     def insert(self, data_id, title, data):
         Data = Query()
         jdata = json.loads(data)
+        print(title)
         return self.data.upsert({'id': data_id, 'title': title, 'data': jdata}, Data.id == data_id)
     
     def getMenu(self):

@@ -2,12 +2,7 @@
   <q-layout view='hHh lpR fFf'>
     <q-header elevated>
       <q-toolbar class="q-electron-drag">
-        <q-toolbar-title>
-          F-Stat <q-badge align="top">v1.0.0</q-badge>
-        </q-toolbar-title>
-         <q-space />
-         <q-btn
-          class='text-black'
+        <q-btn
           flat
           dense
           round
@@ -15,6 +10,10 @@
           aria-label='Menu'
           @click='sideMenu'
         />
+        <q-toolbar-title>
+          F-Stat <q-badge align="top">v1.0.0</q-badge>
+        </q-toolbar-title>
+         <q-space />
       </q-toolbar>
     </q-header>
 
@@ -32,6 +31,7 @@
           Data Sets
         </q-item-label>
         <DataHouse
+          @naviGate="naviGate"
           v-for='link in datanav'
           :key='link.id'
           v-bind='link'
@@ -40,19 +40,20 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view @newDataset="newDataset"/>
+      <DataGrid ref="datagrid" @newDataset="newDataset" @deleteDataset="deleteDataset"/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import DataHouse from 'components/DataHouse.vue'
+import DataGrid from 'components/DataGrid.vue'
 import { axiosInstance } from 'boot/axios'
 var vueObject = null
 
 export default {
   name: 'MainLayout',
-  components: { DataHouse },
+  components: { DataHouse, DataGrid },
   data () {
     return {
       leftDrawerOpen: false,
@@ -67,22 +68,33 @@ export default {
           this.leftDrawerOpen = !this.leftDrawerOpen
           this.myicon = this.leftDrawerOpen ? 'chevron_left' : 'chevron_right'
       },
-      newDataset: function (arg1, arg2) {
+      deleteDataset: function (arg1) {
+        this.datainfo.splice(this.datainfo.findIndex(item => item.id === arg1), 1)
+        this.$refs.datagrid.showData()
+      },
+      naviGate: function (id, title) {
+          this.$refs.datagrid.showData(title, id)
+      },
+      newDataset: function (arg1, arg2, arg3) {
         console.log('Arg1: ' + arg1)
         console.log('Arg2: ' + arg2)
-        this.datainfo.push({
-          title: arg1,
-          caption: 'Data set',
-          id: arg2,
-          icon: 'mdi-file-tree',
-          link: '/data?id=' + arg2 + '&title=' + arg1
-        })
-      },
-      testElectron: function () {
-      console.log('Open Bokeh')
-      // alert(ipcRenderer.sendSync('getPath'))
-      this.$router.push('/bokeh')
-    }
+        if (!arg3) {
+          this.datainfo.push({
+            title: arg1,
+            caption: 'Data set',
+            id: arg2,
+            icon: 'mdi-file-tree',
+            graphs: [],
+            results: []
+          })
+        } else {
+          this.datainfo.forEach(e => {
+            if (e.id === arg2) {
+              e.title = arg1
+            }
+          })
+        }
+      }
   },
   mounted: function () {
     vueObject = this
@@ -95,8 +107,12 @@ export default {
             caption: 'Data set',
             id: menu.id,
             icon: 'mdi-file-tree',
-            link: '/data?id=' + menu.id + '&title=' + menu.title
+            graphs: [],
+            results: []
           })
+        }
+        if (vueObject.datainfo.length === 0) {
+            vueObject.$refs.datagrid.showData()
         }
         vueObject.$q.loading.hide()
       })

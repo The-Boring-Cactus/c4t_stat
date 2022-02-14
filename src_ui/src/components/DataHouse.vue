@@ -2,7 +2,7 @@
   <q-item
     clickable
     tag="a"
-    @click="navigate(link)"
+    @click="navigate()"
     exact
   >
     <q-item-section
@@ -40,21 +40,40 @@ export default {
       default: '/'
     },
 
+    id: {
+      type: String,
+      default: ''
+    },
+
     icon: {
       type: String,
       default: ''
+    },
+
+    graphs: {
+      type: Array,
+      default: () => []
+    },
+
+    results: {
+      ype: Array,
+      default: () => []
     }
   },
   methods: {
-    navigate (e) {
-      this.$router.push('/').catch(err => {
-            console.log(err)
-          })
-          this.$nextTick(() => {
-            this.$router.push(e).catch(err => {
-              console.log(err)
-            })
-          })
+    navigate () {
+      this.$emit('naviGate', this.title, this.id)
+      console.log('naviGate', this.title, this.id)
+      // var r = new Date().getTime()
+      // var e = ee + '&t=' + r
+      // this.$router.push('/').catch(err => {
+      //       console.log(err)
+      //     })
+      //     this.$nextTick(() => {
+      //       this.$router.push(e).catch(err => {
+      //         console.log(err)
+      //       })
+      //     })
     }
   }
 }
